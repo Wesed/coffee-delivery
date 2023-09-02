@@ -2,6 +2,12 @@ module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
     extend: {
+      fontSize: {
+        xxs: '0.625rem',
+      },
+      borderRadius: {
+        coffeeCard: '6px 36px 6px 36px',
+      },
       backgroundImage: {
         backgroundContainer: "url('../src/assets/background.png')",
       },
