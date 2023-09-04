@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 
 export interface checkoutProps {
   icon: ReactNode
@@ -19,6 +19,7 @@ export function PaymentOption({ icon, typePayment, id }: checkoutProps) {
         {icon}
         <span className="uppercase text-base_text text-xs">{typePayment}</span>
       </div>
+
     </label>
   )
 }

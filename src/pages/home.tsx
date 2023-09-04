@@ -1,4 +1,4 @@
-import { ShoppingCart } from 'phosphor-react'
+import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import image from '../assets/Imagem.png'
 
 import { Items } from '../components/Title/items'
@@ -21,22 +21,22 @@ export function Home() {
           </div>
           <div className="py-16 flex flex-wrap gap-y-5 gap-x-10">
             <Items
-              icon={<ShoppingCart weight="fill" className="fill-background" />}
+              icon={<ShoppingCart size={18} weight="fill" className="fill-background" />}
               text="Compra simples e segura"
               color="bg-yellow_dark"
             />
             <Items
-              icon={<ShoppingCart weight="fill" className="fill-background" />}
+              icon={<Package size={18} weight="fill" className="fill-background" />}
               text="Embalagem que mantém o café intacto"
               color="bg-base_text"
             />
             <Items
-              icon={<ShoppingCart weight="fill" className="fill-background" />}
+              icon={<Timer size={18} weight="fill" className="fill-background" />}
               text="Entrega rápida e rastreada"
               color="bg-yellow"
             />
             <Items
-              icon={<ShoppingCart weight="fill" className="fill-background" />}
+              icon={<Coffee size={18} weight="fill" className="fill-background" />}
               text="O café chega fresquinho até você"
               color="bg-purple"
             />
