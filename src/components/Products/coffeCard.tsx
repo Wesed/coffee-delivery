@@ -1,4 +1,4 @@
-import { ShoppingCartSimple, Plus, Minus } from 'phosphor-react'
+import { ShoppingCartSimple } from 'phosphor-react'
 import uuid from 'react-uuid'
 import { QtdItem } from './qtdItem'
 
@@ -36,7 +36,7 @@ export function CoffeCard({ image, title, subtitle, tags }: coffeeCardProps) {
         <div className="flex flex-1 gap-2">
           {/* qtd */}
           <QtdItem />
-          <button className="bg-purple_dark p-2 rounded-md">
+          <button className="hover:bg-purple_dark transition bg-purple p-2 rounded-md">
             <ShoppingCartSimple
               weight="fill"
               size={22}

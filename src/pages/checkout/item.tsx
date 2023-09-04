@@ -17,7 +17,7 @@ export function Item({ image, title, price }: itemProps) {
           <span className="text-base_subtitle text-base">{title}</span>
           <div className="flex gap-2">
             <QtdItem />
-            <button className="flex items-center gap-1 uppercase text-xs bg-base_button rounded-md p-2 text-base_text">
+            <button className="hover:bg-base_hover transition flex items-center gap-1 uppercase text-xs bg-base_button rounded-md p-2 text-base_text">
               <Trash size={22} className="text-purple" />
               remover
             </button>

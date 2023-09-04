@@ -15,13 +15,10 @@ export function PaymentOption({ icon, typePayment, id }: checkoutProps) {
         id={id}
         className="sr-only peer"
       />
-      <div className="w-44 bg-base_button border peer-checked:bg-purple_light peer-checked:border-purple cursor-pointer flex gap-3 items-start rounded-md justify-start pl-4 py-4">
+      <div className="w-44 bg-base_button border transition hover:bg-base_hover peer-checked:bg-purple_light peer-checked:border-purple cursor-pointer flex gap-3 items-start rounded-md justify-start pl-4 py-4">
         {icon}
         <span className="uppercase text-base_text text-xs">{typePayment}</span>
-        <span>oi td
-        </span>
       </div>
-
     </label>
   )
 }

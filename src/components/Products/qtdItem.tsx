@@ -10,16 +10,16 @@ export function QtdItem() {
         onClick={() => {
           qtd > 0 && setQtd(qtd - 1)
         }}
-        className="text-purple w-4"
+        className="text-purple w-4 hover:text-purple_dark transition"
       >
         <Minus size={16} />
       </button>
-      <span className="">{qtd}</span>
+      <span className="text-base_text">{qtd}</span>
       <button
         onClick={() => {
           setQtd(qtd + 1)
         }}
-        className="text-purple w-4"
+        className="text-purple w-4 hover:text-purple_dark transition"
       >
         <Plus size={16} />
       </button>

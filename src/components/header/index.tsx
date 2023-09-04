@@ -10,7 +10,10 @@ export function Header() {
           <MapPin size={22} weight="fill" className="fill-purple" />
           <span className="text-purple_dark text-sm">Porto Alegre, RS</span>
         </span>
-        <button className="bg-yellow_light p-2 rounded-md">
+        <button className="relative bg-yellow_light p-2 rounded-md">
+          <span className="-top-2 -right-2 absolute w-5 h-5 rounded-full bg-yellow_dark text-xs text-white flex items-center justify-center font-bold">
+            2
+          </span>
           <ShoppingCart size={22} weight="fill" className="fill-yellow_dark" />
         </button>
       </nav>
