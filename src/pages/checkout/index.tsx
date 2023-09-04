@@ -99,12 +99,6 @@ export function Checkout() {
             </div>
           </div>
 
-          <div>
-            oi
-            td
-            bem
-          </div>
-
           <button className="py-3 font-bold uppercase rounded-md bg-yellow text-white text-sm align-middle">
             confirmar pedido
           </button>
