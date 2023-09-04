@@ -2,6 +2,10 @@ module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        checkout: '60% 40%',
+        // checkout: '1fr 450px',
+      },
       fontSize: {
         xxs: '0.625rem',
       },

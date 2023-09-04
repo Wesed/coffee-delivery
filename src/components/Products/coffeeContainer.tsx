@@ -13,6 +13,7 @@ import havaiano from '../../assets/havaiano.png'
 import arabe from '../../assets/arabe.png'
 import irlandes from '../../assets/irlandes.png'
 import { CoffeCard } from './coffeCard'
+import uuid from 'react-uuid'
 
 export function CoffeeContainer() {
   const coffeeArray = [
@@ -109,7 +110,7 @@ export function CoffeeContainer() {
     <div className="flex py-14 flex-wrap gap-y-10 gap-x-8">
       {coffeeArray.map((item) => (
         <CoffeCard
-          key={item.title}
+          key={uuid()}
           image={item.image}
           title={item.title}
           tags={item.tags}

@@ -9,10 +9,7 @@ export interface ItemsProps {
 export function Items({ icon, text, color }: ItemsProps) {
   return (
     <div className="flex gap-3 text-base items-center text-base_text min-w-[230px]">
-      <span className={`rounded-full p-2 ${color}`}>
-        {/* <ShoppingCart weight="fill" className="fill-background" /> */}
-        {icon}
-      </span>
+      <span className={`rounded-full p-2 ${color}`}>{icon}</span>
       {text}
     </div>
   )
