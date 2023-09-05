@@ -9,7 +9,7 @@ export function Input({ type, grid, ...props }: inputProps) {
     <input
       type={type}
       {...props}
-      className={`focus:border-yellow_dark hover:border-yellow_dark transition rounded-md bg-base_input text-base_text placeholder-base_label text-sm p-3 border border-base_button ${grid}`}
+      className={`rounded-md border border-base_button bg-base_input p-3 text-sm text-base_text placeholder-base_label transition hover:border-yellow_dark focus:border-yellow_dark ${grid}`}
     />
   )
 }

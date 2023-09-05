@@ -8,7 +8,7 @@ export interface ItemsProps {
 
 export function Items({ icon, text, color }: ItemsProps) {
   return (
-    <div className="flex gap-3 text-base items-center text-base_text min-w-[230px]">
+    <div className="flex min-w-[230px] items-center gap-3 text-base text-base_text">
       <span className={`rounded-full p-2 ${color}`}>{icon}</span>
       {text}
     </div>

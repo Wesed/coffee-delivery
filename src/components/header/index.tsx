@@ -3,7 +3,7 @@ import { Logo } from './logo'
 
 export function Header() {
   return (
-    <div className="flex justify-between bg-background px-40 py-8">
+    <div className="flex justify-between bg- px-40 py-8">
       <Logo />
       <nav className="flex gap-3">
         <span className="flex items-center justify-center gap-1 rounded-md bg-purple_light p-2">

@@ -4,10 +4,13 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         checkout: '60% 40%',
-        // checkout: '1fr 450px',
+      },
+      padding: {
+        xxs: '1px',
       },
       fontSize: {
         xxs: '0.625rem',
+        finishTitle: '2rem',
       },
       borderRadius: {
         coffeeCard: '6px 36px 6px 36px',
