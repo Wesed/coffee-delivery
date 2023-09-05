@@ -3,15 +3,15 @@ import { Logo } from './logo'
 
 export function Header() {
   return (
-    <div className="flex justify-between py-8 bg-background px-40">
+    <div className="flex justify-between bg-background px-40 py-8">
       <Logo />
       <nav className="flex gap-3">
-        <span className="p-2 gap-1 flex items-center justify-center rounded-md bg-purple_light">
+        <span className="flex items-center justify-center gap-1 rounded-md bg-purple_light p-2">
           <MapPin size={22} weight="fill" className="fill-purple" />
-          <span className="text-purple_dark text-sm">Porto Alegre, RS</span>
+          <span className="text-sm text-purple_dark">Porto Alegre, RS</span>
         </span>
-        <button className="relative bg-yellow_light p-2 rounded-md">
-          <span className="-top-2 -right-2 absolute w-5 h-5 rounded-full bg-yellow_dark text-xs text-white flex items-center justify-center font-bold">
+        <button className="relative rounded-md bg-yellow_light p-2">
+          <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-yellow_dark text-xs font-bold text-white">
             2
           </span>
           <ShoppingCart size={22} weight="fill" className="fill-yellow_dark" />
