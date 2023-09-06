@@ -1,42 +1,77 @@
 import { ShoppingCartSimple } from 'phosphor-react'
 import uuid from 'react-uuid'
 import { QtdItem } from './qtdItem'
+import { useContext, useState } from 'react'
+import { CoffeeContext } from '../../contexts/CoffeeContext'
+import { FormatPrice } from '../useful/formatPrice'
 
 export interface coffeeCardProps {
+  id: string
   image: string
   title: string
   subtitle: string
   tags: string[]
+  price: number
 }
 
-export function CoffeCard({ image, title, subtitle, tags }: coffeeCardProps) {
+export function CoffeCard({
+  id,
+  image,
+  title,
+  subtitle,
+  tags,
+  price,
+}: coffeeCardProps) {
+  const { newOrder } = useContext(CoffeeContext)
+  const [qtd, setQtd] = useState(1)
+
+  const increaseProd = () => {
+    setQtd((state) => state + 1)
+  }
+
+  const decreaseProd = () => {
+    qtd > 1 && setQtd((state) => state - 1)
+  }
+
+  const handleNewOrder = () => {
+    const order = { id, image, title, price, qtd }
+    newOrder(order)
+    setQtd(1)
+  }
+
   return (
-    <div className="w-64 h-80 bg-base_card flex flex-col items-center justify-center rounded-coffeeCard p-5">
+    <div className="flex h-80 w-64 flex-col items-center justify-center rounded-coffeeCard bg-base_card p-5">
       <img src={image} alt="ilustração do cafe" className="-mt-16" />
       <div className="flex space-x-1">
         {tags.map((item) => (
           <span
             key={uuid()}
-            className="bg-yellow_light text-yellow_dark text-xxs uppercase py-1 px-2 rounded-full font-bold mt-3"
+            className="mt-3 rounded-full bg-yellow_light px-2 py-1 text-xxs font-bold uppercase text-yellow_dark"
           >
             {item}
           </span>
         ))}
       </div>
-      <p className="font-serif text-base_title text-xl mt-4">{title}</p>
-      <span className="text-base_label text-sm mt-2 w-52 text-center">
+      <p className="mt-4 font-serif text-xl text-base_title">{title}</p>
+      <span className="mt-2 w-52 text-center text-sm text-base_label">
         {subtitle}
       </span>
       {/* footer */}
-      <div className="flex items-center mt-8 gap-6">
+      <div className="mt-8 flex items-center gap-6">
         <span className="">
-          R$ <span className="font-serif text-2xl text-base_text">9,90</span>
+          R${' '}
+          <span className="font-serif text-2xl text-base_text">
+            {FormatPrice(price)}
+          </span>
         </span>
         {/* price */}
         <div className="flex flex-1 gap-2">
           {/* qtd */}
-          <QtdItem />
-          <button className="hover:bg-purple_dark transition bg-purple p-2 rounded-md">
+          <QtdItem qtd={qtd} increase={increaseProd} decrease={decreaseProd} />
+          <button
+            onClick={handleNewOrder}
+            className="rounded-md bg-purple p-2 transition hover:bg-purple_dark"
+          >
             <ShoppingCartSimple
               weight="fill"
               size={22}
