@@ -1,24 +1,33 @@
 import { Minus, Plus } from 'phosphor-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-interface QtdItem {
-  qtd: number
-  increase: () => void
-  decrease: () => void
+interface QtdItemProps {
+  catchValue: (value: number) => void
+  qtdProd?: number
 }
 
-export function QtdItem({ qtd, increase, decrease }: QtdItem) {
+export function QtdItem({ catchValue, qtdProd = 1 }: QtdItemProps) {
+  const [qtd, setQtd] = useState(qtdProd)
+
+  useEffect(() => {
+    catchValue(qtd)
+  }, [qtd, catchValue])
+
   return (
     <div className="flex items-center space-x-2 rounded-md bg-base_button px-2">
       <button
-        onClick={decrease}
+        onClick={() => {
+          qtd > 1 && setQtd(qtd - 1)
+        }}
         className="w-4 text-purple transition hover:text-purple_dark"
       >
         <Minus size={16} />
       </button>
       <span className="text-base_text">{qtd}</span>
       <button
-        onClick={increase}
+        onClick={() => {
+          setQtd(qtd + 1)
+        }}
         className="w-4 text-purple transition hover:text-purple_dark"
       >
         <Plus size={16} />

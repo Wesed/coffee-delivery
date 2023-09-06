@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useState } from 'react'
 
 interface Order {
   id: string
+  image: string
   title: string
   qtd: number
   price: number
@@ -11,6 +12,7 @@ interface CoffeeContextProps {
   url: string
   newOrder: (order: Order) => void
   orders: Order[]
+  updatedQtdOrder: (id: string, newQtd: number) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextProps)
@@ -49,8 +51,21 @@ export function CoffeeContextProvider({
     setOrders((state) => [...state, newOrder])
   }
 
+  // altera a qtd dos produtos
+  const updatedQtdOrder = (id: string, newQtd: number) => {
+    setOrders(
+      orders.map((order) => {
+        if (order.id === id) {
+          return { ...order, qtd: newQtd }
+        } else {
+          return order
+        }
+      }),
+    )
+  }
+
   return (
-    <CoffeeContext.Provider value={{ url, newOrder, orders }}>
+    <CoffeeContext.Provider value={{ url, newOrder, orders, updatedQtdOrder }}>
       {children}
     </CoffeeContext.Provider>
   )

@@ -3,13 +3,25 @@ import { Input } from '../../components/input'
 import { Item } from './item'
 import { PaymentOption } from './paymentOption'
 import uuid from 'react-uuid'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CoffeeContext } from '../../contexts/CoffeeContext'
+import { FormatPrice } from '../../components/useful/formatPrice'
 
 export function Checkout() {
   const { orders } = useContext(CoffeeContext)
+  const [totalPurchase, setTotalPurchase] = useState(0)
 
-  console.log(orders)
+  useEffect(() => {
+    if (orders) {
+      const total = orders.map((order) => {
+        return order.price * order.qtd
+      })
+
+      setTotalPurchase(
+        total.reduce((accumulator, currentValue) => accumulator + currentValue),
+      )
+    }
+  }, [orders])
 
   return (
     <div className="mt-10 grid grid-cols-checkout gap-8 px-40 pr-48">
@@ -56,6 +68,7 @@ export function Checkout() {
               </p>
             </div>
           </div>
+          {/* formas de pgto */}
           <div className="mt-8 flex flex-wrap gap-3">
             <PaymentOption
               id={uuid()}
@@ -83,13 +96,21 @@ export function Checkout() {
           Cafés selecionado
         </p>
         <div className="flex flex-col gap-6 rounded-coffeeCard bg-base_card p-10">
-          {/* <Item image={image} title="Expresso Tradicional" price={9.9} />
-          <Item image={image2} title="Capuccino" price={9.9} /> */}
+          {orders.map((order) => (
+            <Item
+              key={order.id}
+              id={order.id}
+              image={order.image}
+              title={order.title}
+              price={order.price}
+              qtdProd={order.qtd}
+            />
+          ))}
           {/* payment container */}
           <div className="flex flex-col gap-3">
             <div className="flex justify-between text-sm text-base_text">
               <span className="">Total de itens</span>
-              R$ 19,80
+              <span>R$ 19,80</span>
             </div>
 
             <div className="flex justify-between text-sm text-base_text">
@@ -99,7 +120,7 @@ export function Checkout() {
 
             <div className="flex justify-between text-xl font-bold text-base_subtitle">
               <span className="">Total</span>
-              R$ 23,30
+              <span>R$ {FormatPrice(totalPurchase + 3.5)}</span>
             </div>
           </div>
 

@@ -25,18 +25,14 @@ export function CoffeCard({
   const { newOrder } = useContext(CoffeeContext)
   const [qtd, setQtd] = useState(1)
 
-  const increaseProd = () => {
-    setQtd((state) => state + 1)
-  }
-
-  const decreaseProd = () => {
-    qtd > 1 && setQtd((state) => state - 1)
-  }
-
   const handleNewOrder = () => {
     const order = { id, image, title, price, qtd }
     newOrder(order)
-    setQtd(1)
+    // resetar o campo dps q clicar no carrinho
+  }
+
+  const catchValue = (value: number) => {
+    setQtd(value)
   }
 
   return (
@@ -67,7 +63,7 @@ export function CoffeCard({
         {/* price */}
         <div className="flex flex-1 gap-2">
           {/* qtd */}
-          <QtdItem qtd={qtd} increase={increaseProd} decrease={decreaseProd} />
+          <QtdItem catchValue={catchValue} />
           <button
             onClick={handleNewOrder}
             className="rounded-md bg-purple p-2 transition hover:bg-purple_dark"
