@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 interface Order {
   id: string
@@ -8,7 +8,6 @@ interface Order {
 }
 
 interface CoffeeContextProps {
-  cartQtd: number
   newOrder: (order: Order) => void
   orders: Order[]
 }
@@ -22,19 +21,34 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const [cartQtd, setCarQtd] = useState(0)
-  const [orders, setOrders] = useState<Order[]>([])
+  /* 
+    se tiver algo no localStorage, inicia o state com esse valor
+    senao tiver, inicia um array vazio
+    converte os dados do localStorage pra object
+  */
 
-  console.log(orders)
+  const [orders, setOrders] = useState<Order[]>(() => {
+    const storedStateAsJSON = localStorage.getItem('@coffee-delivery:orders')
+
+    if (storedStateAsJSON) {
+      return JSON.parse(storedStateAsJSON)
+    }
+
+    return []
+  })
+
+  useEffect(() => {
+    // toda vez que o orders mudar, salva no localStorage
+    const orderJSON = JSON.stringify(orders)
+    localStorage.setItem('@coffee-delivery:orders', orderJSON)
+  }, [orders])
 
   const newOrder = (newOrder: Order) => {
-    // console.log(order)
     setOrders((state) => [...state, newOrder])
-    setCarQtd((state) => state + 1)
   }
 
   return (
-    <CoffeeContext.Provider value={{ cartQtd, newOrder, orders }}>
+    <CoffeeContext.Provider value={{ newOrder, orders }}>
       {children}
     </CoffeeContext.Provider>
   )

@@ -1,10 +1,16 @@
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import { Logo } from './logo'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CoffeeContext } from '../../contexts/CoffeeContext'
 
 export function Header() {
-  const { cartQtd } = useContext(CoffeeContext)
+  const [cartQtd, setCartQtd] = useState(0)
+  useEffect(() => {
+    const ifStorageExists = localStorage.getItem('order')
+    if (ifStorageExists) {
+      setCartQtd(JSON.parse(ifStorageExists).length)
+    }
+  }, [])
   return (
     <div className="flex justify-between px-40 py-8">
       <Logo />
@@ -17,7 +23,13 @@ export function Header() {
           <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-yellow_dark text-xs font-bold text-white">
             {cartQtd}
           </span>
-          <ShoppingCart size={22} weight="fill" className="fill-yellow_dark" />
+          <a href="/checkout">
+            <ShoppingCart
+              size={22}
+              weight="fill"
+              className="fill-yellow_dark"
+            />
+          </a>
         </button>
       </nav>
     </div>
