@@ -1,8 +1,11 @@
 import { MapPin, Timer, CurrencyDollar } from 'phosphor-react'
 import { Info } from './info'
-import illustration from '../../assets/Illustration.png'
+import { useContext } from 'react'
+import { CoffeeContext } from '../../contexts/CoffeeContext'
 
 export function FinishProcess() {
+  const { url } = useContext(CoffeeContext)
+
   return (
     <div className="grid grid-cols-2 items-end gap-24 px-40 py-20 ">
       {/* left container */}
@@ -54,7 +57,7 @@ export function FinishProcess() {
       </div>
       {/* right container */}
       <div className="">
-        <img src={illustration} alt="ilustração de um entregador" />
+        <img src={`${url}illustration`} alt="ilustração de um entregador" />
       </div>
     </div>
   )

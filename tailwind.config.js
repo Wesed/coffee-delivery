@@ -16,7 +16,7 @@ module.exports = {
         coffeeCard: '6px 36px 6px 36px',
       },
       backgroundImage: {
-        backgroundContainer: "url('../src/assets/background.png')",
+        backgroundContainer: "url('http://localhost:5173/background.png')",
       },
       colors: {
         yellow_light: '#F1E9C9',

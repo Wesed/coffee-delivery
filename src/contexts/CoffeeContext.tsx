@@ -8,6 +8,7 @@ interface Order {
 }
 
 interface CoffeeContextProps {
+  url: string
   newOrder: (order: Order) => void
   orders: Order[]
 }
@@ -26,6 +27,7 @@ export function CoffeeContextProvider({
     senao tiver, inicia um array vazio
     converte os dados do localStorage pra object
   */
+  const url = 'http://localhost:5173/'
 
   const [orders, setOrders] = useState<Order[]>(() => {
     const storedStateAsJSON = localStorage.getItem('@coffee-delivery:orders')
@@ -48,7 +50,7 @@ export function CoffeeContextProvider({
   }
 
   return (
-    <CoffeeContext.Provider value={{ newOrder, orders }}>
+    <CoffeeContext.Provider value={{ url, newOrder, orders }}>
       {children}
     </CoffeeContext.Provider>
   )

@@ -1,12 +1,16 @@
 import { MapPin, CurrencyDollar, CreditCard, Bank, Money } from 'phosphor-react'
 import { Input } from '../../components/input'
-import image from '../../assets/americano.png'
-import image2 from '../../assets/capuccino.png'
 import { Item } from './item'
 import { PaymentOption } from './paymentOption'
 import uuid from 'react-uuid'
+import { useContext } from 'react'
+import { CoffeeContext } from '../../contexts/CoffeeContext'
 
 export function Checkout() {
+  const { orders } = useContext(CoffeeContext)
+
+  console.log(orders)
+
   return (
     <div className="mt-10 grid grid-cols-checkout gap-8 px-40 pr-48">
       {/* left container */}
@@ -79,8 +83,8 @@ export function Checkout() {
           Cafés selecionado
         </p>
         <div className="flex flex-col gap-6 rounded-coffeeCard bg-base_card p-10">
-          <Item image={image} title="Expresso Tradicional" price={9.9} />
-          <Item image={image2} title="Capuccino" price={9.9} />
+          {/* <Item image={image} title="Expresso Tradicional" price={9.9} />
+          <Item image={image2} title="Capuccino" price={9.9} /> */}
           {/* payment container */}
           <div className="flex flex-col gap-3">
             <div className="flex justify-between text-sm text-base_text">

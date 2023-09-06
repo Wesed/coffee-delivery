@@ -3,8 +3,12 @@ import image from '../assets/Imagem.png'
 
 import { Items } from '../components/Title/items'
 import { CoffeeContainer } from '../components/Products/coffeeContainer'
+import { useContext } from 'react'
+import { CoffeeContext } from '../contexts/CoffeeContext'
 
 export function Home() {
+  const { url } = useContext(CoffeeContext)
+
   return (
     <main className="min-h-screen">
       {/* title */}
@@ -54,7 +58,7 @@ export function Home() {
             />
           </div>
         </div>
-        <img src={image} alt="foto de um café" />
+        <img src={`${url}imagem.png`} alt="foto de um café" />
       </div>
       {/* produtos */}
       <div className="px-40 pb-40">
