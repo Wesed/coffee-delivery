@@ -13,6 +13,7 @@ interface CoffeeContextProps {
   newOrder: (order: Order) => void
   orders: Order[]
   updatedQtdOrder: (id: string, newQtd: number) => void
+  removeOrder: (id: string) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextProps)
@@ -64,8 +65,21 @@ export function CoffeeContextProvider({
     )
   }
 
+  // deleta um produto
+  const removeOrder = (id: string) => {
+    /* explicacao
+    filtro todos os pedidos, exceto aquele que possui id igual ao da exclusao 
+    */
+    const updatedOrderAfterRemove = orders.filter((order) => {
+      return order.id !== id
+    })
+    setOrders(updatedOrderAfterRemove)
+  }
+
   return (
-    <CoffeeContext.Provider value={{ url, newOrder, orders, updatedQtdOrder }}>
+    <CoffeeContext.Provider
+      value={{ url, newOrder, orders, updatedQtdOrder, removeOrder }}
+    >
       {children}
     </CoffeeContext.Provider>
   )

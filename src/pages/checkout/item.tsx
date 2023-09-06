@@ -13,8 +13,9 @@ export interface itemProps {
 }
 
 export function Item({ id, image, title, price, qtdProd = 1 }: itemProps) {
-  const { updatedQtdOrder } = useContext(CoffeeContext)
+  const { updatedQtdOrder, removeOrder } = useContext(CoffeeContext)
 
+  // arrumar isso
   const catchValue = useCallback((qtd: number) => {
     updatedQtdOrder(id, qtd)
   }, [])
@@ -27,7 +28,12 @@ export function Item({ id, image, title, price, qtdProd = 1 }: itemProps) {
           <span className="text-base text-base_subtitle">{title}</span>
           <div className="flex gap-2">
             <QtdItem catchValue={catchValue} qtdProd={qtdProd} />
-            <button className="flex items-center gap-1 rounded-md bg-base_button p-2 text-xs uppercase text-base_text transition hover:bg-base_hover">
+            <button
+              onClick={() => {
+                removeOrder(id)
+              }}
+              className="flex items-center gap-1 rounded-md bg-base_button p-2 text-xs uppercase text-base_text transition hover:bg-base_hover"
+            >
               <Trash size={22} className="text-purple" />
               remover
             </button>
