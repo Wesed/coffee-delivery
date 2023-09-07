@@ -15,15 +15,8 @@ export interface itemProps {
 export function Item({ id, image, title, price, qtdProd = 1 }: itemProps) {
   const { updatedQtdOrder, removeOrder } = useContext(CoffeeContext)
 
-  // arrumar isso
-  // const catchValue = useCallback((qtd: number) => {
-  //   console.log(title)
-  //   updatedQtdOrder(id, qtd, title)
-  // }, [])
-
   const catchValue = (qtd: number) => {
-    console.log(title)
-    updatedQtdOrder(id, qtd, title)
+    updatedQtdOrder(id, qtd)
   }
 
   return (

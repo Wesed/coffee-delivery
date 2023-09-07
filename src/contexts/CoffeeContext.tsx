@@ -53,7 +53,7 @@ export function CoffeeContextProvider({
   }
 
   // altera a qtd dos produtos
-  const updatedQtdOrder = (id: string, newQtd: number, title: string) => {
+  const updatedQtdOrder = (id: string, newQtd: number) => {
     // console.log('entrou')
     setOrders(
       orders.map((order) => {
