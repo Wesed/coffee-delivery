@@ -1,7 +1,7 @@
 import { Trash } from 'phosphor-react'
 import { QtdItem } from '../../components/Products/qtdItem'
 import { FormatPrice } from '../../components/useful/formatPrice'
-import { useCallback, useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CoffeeContext } from '../../contexts/CoffeeContext'
 
 export interface itemProps {

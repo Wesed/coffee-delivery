@@ -1,6 +1,6 @@
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import { Logo } from './logo'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { CoffeeContext } from '../../contexts/CoffeeContext'
 
 export function Header() {

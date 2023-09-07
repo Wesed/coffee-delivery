@@ -1,6 +1,4 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
-import image from '../assets/Imagem.png'
-
 import { Items } from '../components/Title/items'
 import { CoffeeContainer } from '../components/Products/coffeeContainer'
 import { useContext } from 'react'
