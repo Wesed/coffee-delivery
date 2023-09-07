@@ -16,9 +16,15 @@ export function Item({ id, image, title, price, qtdProd = 1 }: itemProps) {
   const { updatedQtdOrder, removeOrder } = useContext(CoffeeContext)
 
   // arrumar isso
-  const catchValue = useCallback((qtd: number) => {
-    updatedQtdOrder(id, qtd)
-  }, [])
+  // const catchValue = useCallback((qtd: number) => {
+  //   console.log(title)
+  //   updatedQtdOrder(id, qtd, title)
+  // }, [])
+
+  const catchValue = (qtd: number) => {
+    console.log(title)
+    updatedQtdOrder(id, qtd, title)
+  }
 
   return (
     <div className="flex justify-between border-b pb-6">

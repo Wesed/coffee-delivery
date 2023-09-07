@@ -1,5 +1,5 @@
 import { Minus, Plus } from 'phosphor-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface QtdItemProps {
   catchValue: (value: number) => void
@@ -9,9 +9,13 @@ interface QtdItemProps {
 export function QtdItem({ catchValue, qtdProd = 1 }: QtdItemProps) {
   const [qtd, setQtd] = useState(qtdProd)
 
-  useEffect(() => {
+  const callWhenChange = useCallback(() => {
     catchValue(qtd)
   }, [qtd, catchValue])
+
+  useEffect(() => {
+    callWhenChange()
+  }, [qtd])
 
   return (
     <div className="flex items-center space-x-2 rounded-md bg-base_button px-2">
