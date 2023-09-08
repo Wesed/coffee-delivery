@@ -8,12 +8,24 @@ interface Order {
   price: number
 }
 
+interface CheckoutData {
+  zipCode: string
+  addressLine1: string
+  house: number
+  addressLine2?: string
+  neighborhood: string
+  city: string
+  state: string
+  paymentMethod: string
+}
+
 interface CoffeeContextProps {
   url: string
   newOrder: (order: Order) => void
   orders: Order[]
   updatedQtdOrder: (id: string, newQtd: number) => void
   removeOrder: (id: string) => void
+  dataToCheckout: (data: CheckoutData) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextProps)
@@ -77,9 +89,22 @@ export function CoffeeContextProvider({
     setOrders(updatedOrderAfterRemove)
   }
 
+  // armazena info de endereco e forma de pgto
+  const dataToCheckout = (data: CheckoutData) => {
+    console.log(data)
+    // salva essas infos num state e localStorage pra ser acessa pela pagina finished
+  }
+
   return (
     <CoffeeContext.Provider
-      value={{ url, newOrder, orders, updatedQtdOrder, removeOrder }}
+      value={{
+        url,
+        newOrder,
+        orders,
+        updatedQtdOrder,
+        removeOrder,
+        dataToCheckout,
+      }}
     >
       {children}
     </CoffeeContext.Provider>
