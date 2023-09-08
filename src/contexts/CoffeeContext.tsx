@@ -91,7 +91,7 @@ export function CoffeeContextProvider({
 
   // armazena info de endereco e forma de pgto
   const dataToCheckout = (data: CheckoutData) => {
-    console.log(data)
+    console.log(typeof data)
     // salva essas infos num state e localStorage pra ser acessa pela pagina finished
   }
 

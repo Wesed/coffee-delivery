@@ -13,23 +13,39 @@ import * as zod from 'zod'
 const checkoutFormValidationSchema = zod.object({
   zipCode: zod
     .string()
-    .min(8, 'CEP inválido!')
-    .regex(/^[0-9]{5}-[0-9]{3}$/, 'CEP inválido'),
-
+    .min(8, 'CEP inválido. Ex: 00000-000')
+    .regex(/^[0-9]{5}-[0-9]{3}$/, 'CEP inválido. Ex: 00000-000'),
   addressLine1: zod.string().min(10, 'Ops, o endereço não parece correto.'),
-  house: zod.string().min(2, 'Verifique o número da casa.'),
+  house: zod.number({ invalid_type_error: 'Somente números são aceitos' }),
   // como nao e obrigatorio, nao tem validacao
-  addressLine2: zod.custom<{ arg: string }>(),
+  addressLine2: zod.string(),
   neighborhood: zod.string().min(5, 'Verifique o bairro.'),
   city: zod.string().min(8, 'Por favor, não abrevie o nome. Ex: São Paulo'),
-  uf: zod.string().max(2, 'Informe somente a sigla do estado. Ex: SP'),
+  state: zod.string().max(2, 'Informe somente a sigla do estado. Ex: SP'),
+  paymentOption: zod.string({
+    invalid_type_error: 'Escolha a forma de pagamento.',
+  }),
 })
+
+// o zod gera uma 'interface' baseado no schema do formulario
+type CheckoutFormData = zod.infer<typeof checkoutFormValidationSchema>
 
 export function Checkout() {
   const { register, handleSubmit, formState } = useForm({
     resolver: zodResolver(checkoutFormValidationSchema),
+    // se nao defino isso, da erro no handleSubmit
+    defaultValues: {
+      zipCode: '',
+      addressLine1: '',
+      house: 0,
+      addressLine2: '',
+      neighborhood: '',
+      city: '',
+      state: '',
+      paymentOption: '',
+    },
   })
-  const { orders } = useContext(CoffeeContext)
+  const { orders, dataToCheckout } = useContext(CoffeeContext)
   const [totalPurchase, setTotalPurchase] = useState(0)
 
   useEffect(() => {
@@ -46,8 +62,28 @@ export function Checkout() {
     }
   }, [orders])
 
-  const handleGetAddress = (data: any) => {
-    console.log(data)
+  const handleGetCheckout = (data: CheckoutFormData) => {
+    const checkoutInfo = {
+      zipCode: data.zipCode,
+      addressLine1: data.addressLine1,
+      house: data.house,
+      addressLine2: data.addressLine2,
+      neighborhood: data.neighborhood,
+      city: data.city,
+      state: data.state,
+      paymentOption: data.paymentOption,
+    }
+
+    dataToCheckout(checkoutInfo)
+  }
+
+  let methodPaymentMsgError = ''
+
+  if (
+    formState.errors.paymentOption &&
+    formState.errors.paymentOption.message !== undefined
+  ) {
+    methodPaymentMsgError = formState.errors.paymentOption.message.toString()
   }
 
   return (
@@ -59,7 +95,7 @@ export function Checkout() {
         </p>
         <form
           id="addressForm"
-          onSubmit={handleSubmit(handleGetAddress)}
+          onSubmit={handleSubmit(handleGetCheckout)}
           className="flex flex-col gap-3"
         >
           {/* address container */}
@@ -100,6 +136,7 @@ export function Checkout() {
                 grid="col-span-2"
                 errors={formState.errors.house}
                 register={register}
+                isNumber={true}
               />
               <Input
                 type="text"
@@ -152,19 +189,23 @@ export function Checkout() {
                 id={uuid()}
                 icon={<CreditCard size={16} className="text-purple" />}
                 typePayment="cartão de crédito"
+                register={register}
               />
-
               <PaymentOption
                 id={uuid()}
                 icon={<Bank size={16} className="text-purple" />}
                 typePayment="depósito bancário"
+                register={register}
               />
-
               <PaymentOption
                 id={uuid()}
                 icon={<Money size={16} className="text-purple" />}
                 typePayment="dinheiro"
+                register={register}
               />
+              <span className="text-xs  text-red-700">
+                {methodPaymentMsgError}
+              </span>
             </div>
           </div>
         </form>

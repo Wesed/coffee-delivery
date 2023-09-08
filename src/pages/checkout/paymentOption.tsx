@@ -1,23 +1,31 @@
 import { ReactNode } from 'react'
+import { UseFormRegister, FieldValues } from 'react-hook-form'
 
 export interface checkoutProps {
   icon: ReactNode
   typePayment: string
   id: string
+  register: UseFormRegister<FieldValues>
 }
 
-export function PaymentOption({ icon, typePayment, id }: checkoutProps) {
+export function PaymentOption({
+  icon,
+  typePayment,
+  id,
+  register,
+}: checkoutProps) {
   return (
     <label>
       <input
         type="radio"
-        name="radio-payment"
         id={id}
-        className="sr-only peer"
+        value={typePayment}
+        className="peer sr-only"
+        {...register('paymentOption')}
       />
-      <div className="w-44 bg-base_button border transition hover:bg-base_hover peer-checked:bg-purple_light peer-checked:border-purple cursor-pointer flex gap-3 items-start rounded-md justify-start pl-4 py-4">
+      <div className="flex w-44 cursor-pointer items-start justify-start gap-3 rounded-md border bg-base_button py-4 pl-4 transition hover:bg-base_hover peer-checked:border-purple peer-checked:bg-purple_light">
         {icon}
-        <span className="uppercase text-base_text text-xs">{typePayment}</span>
+        <span className="text-xs uppercase text-base_text">{typePayment}</span>
       </div>
     </label>
   )

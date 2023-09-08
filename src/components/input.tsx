@@ -5,31 +5,35 @@ export interface inputProps {
   type: string
   placeholder: string
   grid: string
-  errors: any | undefined
+  errors: any
   register: UseFormRegister<FieldValues>
+  isNumber?: boolean
 }
 
 export function Input({
   grid,
   name,
+  type,
   placeholder,
   errors,
   register,
+  isNumber = false,
 }: inputProps) {
   return (
     <div className={`flex flex-col gap-1  ${grid}`}>
       <input
+        type={type}
         placeholder={placeholder}
-        {...register(`${name}`)}
+        {...register(`${name}`, { valueAsNumber: isNumber })}
         className={`w-full rounded-md border border-base_button p-3 text-sm text-base_text placeholder-base_label transition  ${
           errors
-            ? 'bg-red-500/10 hover:border-red-500 focus:border-red-500 '
+            ? 'bg-red-500/5  hover:border-red-500 focus:border-red-500 '
             : 'bg-base_input hover:border-yellow_dark focus:border-yellow_dark '
         } `}
       />
 
       {errors && (
-        <span className=" text-xs  text-red-700">{errors.message}</span>
+        <span className="text-xs  text-red-700">{errors.message}</span>
       )}
     </div>
   )
