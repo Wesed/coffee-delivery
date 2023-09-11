@@ -6,7 +6,7 @@ import uuid from 'react-uuid'
 import { useContext, useEffect, useState } from 'react'
 import { CoffeeContext } from '../../contexts/CoffeeContext'
 import { FormatPrice } from '../../components/useful/formatPrice'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useNavigate } from 'react-router-dom'
@@ -34,19 +34,8 @@ const checkoutFormValidationSchema = zod.object({
 type CheckoutFormData = zod.infer<typeof checkoutFormValidationSchema>
 
 export function Checkout() {
-  const { register, handleSubmit, formState } = useForm({
+  const newCheckoutForm = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutFormValidationSchema),
-    // se nao defino isso, da erro no handleSubmit
-    defaultValues: {
-      zipCode: '',
-      addressLine1: '',
-      house: 0,
-      addressLine2: '',
-      neighborhood: '',
-      city: '',
-      state: '',
-      paymentOption: '',
-    },
   })
   const { orders, dataToCheckout } = useContext(CoffeeContext)
   const [totalPurchase, setTotalPurchase] = useState(0)
@@ -82,6 +71,8 @@ export function Checkout() {
     navigate('/finish')
   }
 
+  const { handleSubmit, formState } = newCheckoutForm
+
   let methodPaymentMsgError = ''
 
   if (
@@ -98,122 +89,114 @@ export function Checkout() {
         <p className="font-serif text-lg text-base_subtitle">
           Complete seu pedido
         </p>
-        <form
-          id="addressForm"
-          onSubmit={handleSubmit(handleGetCheckout)}
-          className="flex flex-col gap-3"
-        >
-          {/* address container */}
-          <div className="rounded-md bg-base_card p-10">
-            <div className="flex gap-2">
-              <MapPin size={22} className="text-yellow_dark" />
-              <div className="flex flex-col">
-                <p className="text-base text-base_subtitle">
-                  Endereço de Entrega
-                </p>
-                <p className="text-sm text-base_text">
-                  Informe o endereço onde deseja receber seu pedido
-                </p>
+        <FormProvider {...newCheckoutForm}>
+          <form
+            id="addressForm"
+            onSubmit={handleSubmit(handleGetCheckout)}
+            className="flex flex-col gap-3"
+          >
+            {/* address container */}
+            <div className="rounded-md bg-base_card p-10">
+              <div className="flex gap-2">
+                <MapPin size={22} className="text-yellow_dark" />
+                <div className="flex flex-col">
+                  <p className="text-base text-base_subtitle">
+                    Endereço de Entrega
+                  </p>
+                  <p className="text-sm text-base_text">
+                    Informe o endereço onde deseja receber seu pedido
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="mt-8 grid grid-cols-6 gap-x-3 gap-y-4">
-              <Input
-                name="zipCode"
-                type="text"
-                placeholder="CEP"
-                grid="col-span-2"
-                errors={formState.errors.zipCode}
-                register={register}
-              />
-              <Input
-                type="text"
-                name="addressLine1"
-                placeholder="Rua"
-                grid="col-span-full"
-                errors={formState.errors.addressLine1}
-                register={register}
-              />
-              <Input
-                type="number"
-                name="house"
-                placeholder="Número"
-                grid="col-span-2"
-                errors={formState.errors.house}
-                register={register}
-                isNumber={true}
-              />
-              <Input
-                type="text"
-                name="addressLine2"
-                placeholder="Complemento (opcional)"
-                grid="col-span-4"
-                errors={formState.errors.addressLine2}
-                register={register}
-              />
-              <Input
-                type="text"
-                name="neighborhood"
-                placeholder="Bairro"
-                grid="col-span-2"
-                errors={formState.errors.neighborhood}
-                register={register}
-              />
-              <Input
-                type="text"
-                name="city"
-                placeholder="Cidade"
-                grid="col-span-3"
-                errors={formState.errors.city}
-                register={register}
-              />
-              <Input
-                type="text"
-                name="state"
-                placeholder="UF"
-                grid="col-span-1"
-                errors={formState.errors.state}
-                register={register}
-              />
-            </div>
-          </div>
-          {/* formas de pgto */}
-          <div className="rounded-md bg-base_card p-10">
-            <div className="flex gap-2">
-              <CurrencyDollar size={22} className="text-purple" />
-              <div className="flex flex-col">
-                <p className="text-base text-base_subtitle">Pagamento</p>
-                <p className="text-sm text-base_text">
-                  O pagamento é feito na entrega. Escolha a forma que deseja
-                  pagar
-                </p>
+              <div className="mt-8 grid grid-cols-6 gap-x-3 gap-y-4">
+                <Input
+                  name="zipCode"
+                  type="text"
+                  placeholder="CEP"
+                  grid="col-span-2"
+                  errors={formState.errors.zipCode}
+                />
+                <Input
+                  type="text"
+                  name="addressLine1"
+                  placeholder="Rua"
+                  grid="col-span-full"
+                  errors={formState.errors.addressLine1}
+                />
+                <Input
+                  type="number"
+                  name="house"
+                  placeholder="Número"
+                  grid="col-span-2"
+                  errors={formState.errors.house}
+                  isNumber={true}
+                />
+                <Input
+                  type="text"
+                  name="addressLine2"
+                  placeholder="Complemento (opcional)"
+                  grid="col-span-4"
+                  errors={formState.errors.addressLine2}
+                />
+                <Input
+                  type="text"
+                  name="neighborhood"
+                  placeholder="Bairro"
+                  grid="col-span-2"
+                  errors={formState.errors.neighborhood}
+                />
+                <Input
+                  type="text"
+                  name="city"
+                  placeholder="Cidade"
+                  grid="col-span-3"
+                  errors={formState.errors.city}
+                />
+                <Input
+                  type="text"
+                  name="state"
+                  placeholder="UF"
+                  grid="col-span-1"
+                  errors={formState.errors.state}
+                />
               </div>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <PaymentOption
-                id={uuid()}
-                icon={<CreditCard size={16} className="text-purple" />}
-                typePayment="cartão de crédito"
-                register={register}
-              />
-              <PaymentOption
-                id={uuid()}
-                icon={<Bank size={16} className="text-purple" />}
-                typePayment="depósito bancário"
-                register={register}
-              />
-              <PaymentOption
-                id={uuid()}
-                icon={<Money size={16} className="text-purple" />}
-                typePayment="dinheiro"
-                register={register}
-              />
-              <span className="text-xs  text-red-700">
-                {methodPaymentMsgError}
-              </span>
+            {/* formas de pgto */}
+            <div className="rounded-md bg-base_card p-10">
+              <div className="flex gap-2">
+                <CurrencyDollar size={22} className="text-purple" />
+                <div className="flex flex-col">
+                  <p className="text-base text-base_subtitle">Pagamento</p>
+                  <p className="text-sm text-base_text">
+                    O pagamento é feito na entrega. Escolha a forma que deseja
+                    pagar
+                  </p>
+                </div>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <PaymentOption
+                  id={uuid()}
+                  icon={<CreditCard size={16} className="text-purple" />}
+                  typePayment="cartão de crédito"
+                />
+                <PaymentOption
+                  id={uuid()}
+                  icon={<Bank size={16} className="text-purple" />}
+                  typePayment="depósito bancário"
+                />
+                <PaymentOption
+                  id={uuid()}
+                  icon={<Money size={16} className="text-purple" />}
+                  typePayment="dinheiro"
+                />
+                <span className="text-xs  text-red-700">
+                  {methodPaymentMsgError}
+                </span>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </FormProvider>
       </div>
       {/* right container */}
       <div className="flex flex-col space-y-4">

@@ -1,19 +1,21 @@
 import { ReactNode } from 'react'
-import { UseFormRegister, FieldValues } from 'react-hook-form'
+import { UseFormRegister, FieldValues, useFormContext } from 'react-hook-form'
 
 export interface checkoutProps {
   icon: ReactNode
   typePayment: string
   id: string
-  register: UseFormRegister<FieldValues>
+  // register: UseFormRegister<FieldValues>
+  // register: any
 }
 
 export function PaymentOption({
   icon,
   typePayment,
-  id,
-  register,
+  id, // register,
 }: checkoutProps) {
+  const { register } = useFormContext()
+
   return (
     <label>
       <input

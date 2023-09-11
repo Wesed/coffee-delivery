@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form'
+import { UseFormRegister, FieldValues, useFormContext } from 'react-hook-form'
 
 export interface inputProps {
   name: string
@@ -6,7 +6,7 @@ export interface inputProps {
   placeholder: string
   grid: string
   errors: any
-  register: UseFormRegister<FieldValues>
+  // register: any
   isNumber?: boolean
 }
 
@@ -16,9 +16,11 @@ export function Input({
   type,
   placeholder,
   errors,
-  register,
+  // register,
   isNumber = false,
 }: inputProps) {
+  const { register } = useFormContext()
+
   return (
     <div className={`flex flex-col gap-1  ${grid}`}>
       <input
