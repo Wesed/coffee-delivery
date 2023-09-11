@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { UseFormRegister, FieldValues, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 
 export interface checkoutProps {
   icon: ReactNode
