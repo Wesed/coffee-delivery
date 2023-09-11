@@ -13,7 +13,7 @@ export function Info({ icon, text, importantText, color }: infoProps) {
       <span className={`rounded-full p-2 bg-${color}`}>{icon}</span>
       <div className="flex flex-col">
         <span className="w-52">{text}</span>
-        <span className="gap-1 font-bold">{importantText}</span>
+        <span className="gap-1 font-bold capitalize">{importantText}</span>
       </div>
     </div>
   )

@@ -1,0 +1,18 @@
+
+
+ - coisas a melhorar (coffee delivery):
+______________________________________________________________________________________________________________________________________________________________
+  
+    - vamos supor que ja haja um 'cafe expresso' no carrinho. Caso a pessoa adicione outro, mudar a quantidade pra 2, ao inves de adicionar dois cafes expressos  separados.
+    - como fazer isso: antes de add no array, verificar se ja tem um com o mesmo id. Se tiver, chama a funçao de alterar a ordem
+
+______________________________________________________________________________________________________________________________________________________________
+
+
+    - corrigir erro do register no checkout
+
+______________________________________________________________________________________________________________________________________________________________
+
+   - dar uma revisada no codigo e ver o que pode melhorar com clean code e clean architecture
+
+______________________________________________________________________________________________________________________________________________________________

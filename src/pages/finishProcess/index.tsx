@@ -4,7 +4,10 @@ import { useContext } from 'react'
 import { CoffeeContext } from '../../contexts/CoffeeContext'
 
 export function FinishProcess() {
-  const { url } = useContext(CoffeeContext)
+  const { url, checkoutData } = useContext(CoffeeContext)
+
+  const { addressLine1, house, neighborhood, city, state, paymentOption } =
+    checkoutData
 
   return (
     <div className="grid grid-cols-2 items-end gap-24 px-40 py-20 ">
@@ -25,12 +28,12 @@ export function FinishProcess() {
               <span className="rounded-full bg-purple p-2">
                 <MapPin size={16} weight="fill" className="fill-white" />
               </span>
-              <span className="">
+              <span className="capitalize">
                 Entrega em{' '}
                 <span className="font-bold">
-                  Rua João Daniel Martinelli, 102
+                  {addressLine1}, {house}
                 </span>{' '}
-                Farrapos - Porto Alegre, RS
+                {neighborhood} - {city}, {state}
               </span>
             </div>
 
@@ -49,7 +52,7 @@ export function FinishProcess() {
                 />
               }
               text="Pagamento na entrega"
-              importantText="Cartão de Crédito"
+              importantText={paymentOption}
               color="yellow_dark"
             />
           </div>
@@ -57,7 +60,7 @@ export function FinishProcess() {
       </div>
       {/* right container */}
       <div className="">
-        <img src={`${url}illustration`} alt="ilustração de um entregador" />
+        <img src={`${url}illustration.png`} alt="ilustração de um entregador" />
       </div>
     </div>
   )

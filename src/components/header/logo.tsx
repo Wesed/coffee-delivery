@@ -1,6 +1,6 @@
 export function Logo() {
   return (
-    <strong>
+    <a href="/">
       <svg
         width="85"
         height="40"
@@ -75,6 +75,6 @@ export function Logo() {
           fill="#403937"
         />
       </svg>
-    </strong>
+    </a>
   )
 }

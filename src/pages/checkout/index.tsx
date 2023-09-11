@@ -9,6 +9,7 @@ import { FormatPrice } from '../../components/useful/formatPrice'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import { useNavigate } from 'react-router-dom'
 
 const checkoutFormValidationSchema = zod.object({
   zipCode: zod
@@ -49,6 +50,7 @@ export function Checkout() {
   })
   const { orders, dataToCheckout } = useContext(CoffeeContext)
   const [totalPurchase, setTotalPurchase] = useState(0)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (orders.length > 0) {
@@ -77,6 +79,7 @@ export function Checkout() {
     }
 
     dataToCheckout(checkoutInfo)
+    navigate('/finish')
   }
 
   let methodPaymentMsgError = ''
@@ -250,7 +253,7 @@ export function Checkout() {
                 type="submit"
                 form="addressForm"
                 value="confirmar pedido"
-                className="rounded-md bg-yellow py-3 align-middle text-sm font-bold uppercase text-white transition hover:bg-yellow_dark"
+                className="cursor-pointer rounded-md bg-yellow py-3 align-middle text-sm font-bold uppercase text-white transition hover:bg-yellow_dark"
               />
             </div>
           ) : (

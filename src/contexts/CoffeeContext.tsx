@@ -16,13 +16,14 @@ interface CheckoutData {
   neighborhood: string
   city: string
   state: string
-  paymentMethod: string
+  paymentOption: string
 }
 
 interface CoffeeContextProps {
   url: string
-  newOrder: (order: Order) => void
   orders: Order[]
+  checkoutData: CheckoutData
+  newOrder: (order: Order) => void
   updatedQtdOrder: (id: string, newQtd: number) => void
   removeOrder: (id: string) => void
   dataToCheckout: (data: CheckoutData) => void
@@ -37,28 +38,43 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
+  const url = 'http://localhost:5173/'
+
   /* 
     se tiver algo no localStorage, inicia o state com esse valor
     senao tiver, inicia um array vazio
     converte os dados do localStorage pra object
   */
-  const url = 'http://localhost:5173/'
-
   const [orders, setOrders] = useState<Order[]>(() => {
-    const storedStateAsJSON = localStorage.getItem('@coffee-delivery:orders')
+    const orderStateAsJSON = localStorage.getItem('@coffee-delivery:orders')
 
-    if (storedStateAsJSON) {
-      return JSON.parse(storedStateAsJSON)
+    if (orderStateAsJSON) {
+      return JSON.parse(orderStateAsJSON)
     }
 
     return []
+  })
+  const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
+    const checkoutStateAsJSON = localStorage.getItem(
+      '@coffee-delivery:checkout',
+    )
+
+    if (checkoutStateAsJSON) {
+      return JSON.parse(checkoutStateAsJSON)
+    }
+
+    return {}
   })
 
   useEffect(() => {
     // toda vez que o orders mudar, salva no localStorage
     const orderJSON = JSON.stringify(orders)
     localStorage.setItem('@coffee-delivery:orders', orderJSON)
-  }, [orders])
+
+    // salva os dados do checkout
+    const checkoutJSON = JSON.stringify(checkoutData)
+    localStorage.setItem('@coffee-delivery:checkout', checkoutJSON)
+  }, [orders, checkoutData])
 
   const newOrder = (newOrder: Order) => {
     setOrders((state) => [...state, newOrder])
@@ -66,7 +82,6 @@ export function CoffeeContextProvider({
 
   // altera a qtd dos produtos
   const updatedQtdOrder = (id: string, newQtd: number) => {
-    // console.log('entrou')
     setOrders(
       orders.map((order) => {
         if (order.id === id) {
@@ -91,14 +106,13 @@ export function CoffeeContextProvider({
 
   // armazena info de endereco e forma de pgto
   const dataToCheckout = (data: CheckoutData) => {
-    const checkoutJSON = JSON.stringify(data)
-    localStorage.setItem('@coffee-delivery:checkout', checkoutJSON)
-    // salva essas infos num state e localStorage pra ser acessa pela pagina finished
+    setCheckoutData(data)
   }
 
   return (
     <CoffeeContext.Provider
       value={{
+        checkoutData,
         url,
         newOrder,
         orders,
