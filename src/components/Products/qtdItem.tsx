@@ -1,5 +1,5 @@
 import { Minus, Plus } from 'phosphor-react'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface QtdItemProps {
   catchValue: (value: number) => void
