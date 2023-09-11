@@ -91,7 +91,8 @@ export function CoffeeContextProvider({
 
   // armazena info de endereco e forma de pgto
   const dataToCheckout = (data: CheckoutData) => {
-    console.log(typeof data)
+    const checkoutJSON = JSON.stringify(data)
+    localStorage.setItem('@coffee-delivery:checkout', checkoutJSON)
     // salva essas infos num state e localStorage pra ser acessa pela pagina finished
   }
 

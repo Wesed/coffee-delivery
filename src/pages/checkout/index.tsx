@@ -16,7 +16,9 @@ const checkoutFormValidationSchema = zod.object({
     .min(8, 'CEP inválido. Ex: 00000-000')
     .regex(/^[0-9]{5}-[0-9]{3}$/, 'CEP inválido. Ex: 00000-000'),
   addressLine1: zod.string().min(10, 'Ops, o endereço não parece correto.'),
-  house: zod.number({ invalid_type_error: 'Somente números são aceitos' }),
+  house: zod
+    .number({ invalid_type_error: 'Somente números são aceitos' })
+    .min(1, 'Ops, confira o número.'),
   // como nao e obrigatorio, nao tem validacao
   addressLine2: zod.string(),
   neighborhood: zod.string().min(5, 'Verifique o bairro.'),
