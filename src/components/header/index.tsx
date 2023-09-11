@@ -8,15 +8,24 @@ export function Header() {
   const { city, state } = checkoutData
   const cartQtd = orders.length
 
+  console.log(checkoutData.city)
+
   return (
     <div className="flex justify-between px-40 py-8">
       <Logo />
       <nav className="flex gap-3">
-        {checkoutData && (
+        {checkoutData.city ? (
           <span className="flex items-center justify-center gap-1 rounded-md bg-purple_light p-2">
             <MapPin size={22} weight="fill" className="fill-purple" />
             <span className="text-sm capitalize text-purple_dark">
               {city}, {state}
+            </span>
+          </span>
+        ) : (
+          <span className="flex items-center justify-center gap-1 rounded-md bg-purple_light p-2">
+            <MapPin size={22} weight="fill" className="fill-purple" />
+            <span className="text-sm text-purple_dark first-letter:capitalize">
+              Cadastre seu endereço
             </span>
           </span>
         )}
