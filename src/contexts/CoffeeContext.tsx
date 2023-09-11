@@ -38,8 +38,8 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const url = 'http://localhost:5173/'
-  // const url = 'https://coffee-delivery-three-taupe.vercel.app/'
+  // const url = 'http://localhost:5173/'
+  const url = 'https://coffee-delivery-three-taupe.vercel.app/'
 
   /* 
     se tiver algo no localStorage, inicia o state com esse valor
