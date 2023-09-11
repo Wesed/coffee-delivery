@@ -5,15 +5,9 @@ export interface checkoutProps {
   icon: ReactNode
   typePayment: string
   id: string
-  // register: UseFormRegister<FieldValues>
-  // register: any
 }
 
-export function PaymentOption({
-  icon,
-  typePayment,
-  id, // register,
-}: checkoutProps) {
+export function PaymentOption({ icon, typePayment, id }: checkoutProps) {
   const { register } = useFormContext()
 
   return (

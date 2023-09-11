@@ -24,7 +24,10 @@ const checkoutFormValidationSchema = zod.object({
   addressLine2: zod.string(),
   neighborhood: zod.string().min(5, 'Verifique o bairro.'),
   city: zod.string().min(8, 'Por favor, não abrevie o nome. Ex: São Paulo'),
-  state: zod.string().max(2, 'Informe somente a sigla do estado. Ex: SP'),
+  state: zod
+    .string()
+    .min(2, 'Informe somente a sigla do estado. Ex: SP')
+    .max(2, 'Informe somente a sigla do estado. Ex: SP'),
   paymentOption: zod.string({
     invalid_type_error: 'Escolha a forma de pagamento.',
   }),
